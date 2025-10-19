@@ -80,7 +80,12 @@ def filter_log_folders(main_log_path):
 
 if "log_path" not in state:
     if main_log_path:
-        state.log_path = filter_log_folders(main_log_path)[0]
+        folders = filter_log_folders(main_log_path)
+        if folders:
+            state.log_path = folders[0]
+        else:
+            state.log_path = None
+            st.toast(":red[**No log folders found in the specified directory!**]", icon="⚠️")
     else:
         state.log_path = None
         st.toast(":red[**Please Set Log Path!**]", icon="⚠️")
